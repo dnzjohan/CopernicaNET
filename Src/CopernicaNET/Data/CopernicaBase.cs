@@ -19,5 +19,7 @@ namespace Arlanet.CopernicaNET.Data
                     return db.Id;
             }
         }
-    }
+
+		public int ID { get; set; }
+	}
 }

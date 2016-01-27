@@ -7,6 +7,8 @@ namespace Arlanet.CopernicaNET.Data
 {
 	public class CopernicaConfigurableBase : ICopernicaDataItem
 	{
+		public int ID { get; set; }
+
 		public int DatabaseId
 		{
 			get

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arlanet.CopernicaNET", "Src\CopernicaNET\Arlanet.CopernicaNET.csproj", "{08483CD1-9FBA-4E4F-9AF4-7A9F8D87A6D0}"
 EndProject
@@ -22,6 +22,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{11C5E3
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERS.Copernica.Test", "..\..\etam\ERS.Copernica.Test\ERS.Copernica.Test.csproj", "{8166B41D-7E61-4AA5-905A-7F3CEFAF58A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERS.Copernica.Shared", "..\..\etam\ERS.Copernica.Shared\ERS.Copernica.Shared.csproj", "{A5F20F91-3742-4FAC-840F-C935CD31CF95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERS.Copernica", "..\..\etam\ERS.Copernica\ERS.Copernica.csproj", "{91CF652B-722C-4F11-9218-D3C34AFAE017}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +46,18 @@ Global
 		{FACF2C82-8078-4C9D-B86D-4D6D84D17A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FACF2C82-8078-4C9D-B86D-4D6D84D17A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FACF2C82-8078-4C9D-B86D-4D6D84D17A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8166B41D-7E61-4AA5-905A-7F3CEFAF58A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8166B41D-7E61-4AA5-905A-7F3CEFAF58A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8166B41D-7E61-4AA5-905A-7F3CEFAF58A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8166B41D-7E61-4AA5-905A-7F3CEFAF58A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F20F91-3742-4FAC-840F-C935CD31CF95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F20F91-3742-4FAC-840F-C935CD31CF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F20F91-3742-4FAC-840F-C935CD31CF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F20F91-3742-4FAC-840F-C935CD31CF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91CF652B-722C-4F11-9218-D3C34AFAE017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91CF652B-722C-4F11-9218-D3C34AFAE017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91CF652B-722C-4F11-9218-D3C34AFAE017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91CF652B-722C-4F11-9218-D3C34AFAE017}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

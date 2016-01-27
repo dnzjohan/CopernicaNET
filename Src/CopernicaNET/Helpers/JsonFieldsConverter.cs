@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Arlanet.CopernicaNET.Attributes;
@@ -16,7 +18,7 @@ namespace Arlanet.CopernicaNET.Helpers
             return true;
         }
 
-        //This json converter is used to map the actual names that are given in the CopernicaField attributes.
+	    //This json converter is used to map the actual names that are given in the CopernicaField attributes.
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             //TODO: Cleanup!
@@ -26,8 +28,8 @@ namespace Arlanet.CopernicaNET.Helpers
             var data = jObject["data"];
 
             //If data is empty the REST api returned nothing
-            if(data.FirstOrDefault() == null)
-                throw new CopernicaException("Data is empty");
+	        if (data.FirstOrDefault() == null)
+		        return null;
 
             //This part is needed when retrieving the fields in order to validate the given object.
             if (objectType.Name == "CopernicaField")
@@ -41,29 +43,64 @@ namespace Arlanet.CopernicaNET.Helpers
                 }).ToList();
             }
 
-            //Parse the data until only the object is left.
-            dynamic a = JObject.Parse(data.First.ToString());
-            dynamic b = JObject.Parse(a["fields"].ToString());
-            var obj = (Object)Activator.CreateInstance(objectType);
-            var jobject = new JObject(b);
+	        if (data.Type == JTokenType.Array)
+	        {
+		        var listType = typeof (List<>);
+				// Create list
+		        var obj = Activator.CreateInstance(listType.MakeGenericType(objectType));
+				// Get add method
+				MethodInfo method = obj.GetType().GetMethod("Add");
 
-            //Get all the properties and loop trough them. Then add all the properties with the correct names from je object.
-            //This makes sure the mapping is right when deserializing the object.
-            var properties = objectType.GetProperties().Where(x => x.GetCustomAttributes(false).Any(y => y.GetType() == typeof(CopernicaField) || y.GetType() == typeof(CopernicaKeyField)));
-            var jobj = new JObject();
-            foreach (var property in properties)
-            {
-                jobj.Add(property.Name, jobject[property.GetCustomAttribute<CopernicaField>().Name]);
-            }
+		        //parse array of items
+		        foreach (var dataItem in data)
+		        {
+					var deserializedItem = DeserializeJsonObject(objectType, serializer, JObject.Parse(dataItem.ToString()));
+					// Add deserializedItem to List
+					method.Invoke(obj, new[] { deserializedItem });
+		        }
+		        return obj;
+	        }
 
-            //Populate the correct data in the object.
-            JsonReader objreader = jobj.CreateReader();
-            serializer.Populate(objreader, obj);
-
-            return obj;
+	        //parse single item
+			return DeserializeJsonObject(objectType, serializer, JObject.Parse(data.First.ToString()));
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+	    private static object DeserializeJsonObject(Type objectType, JsonSerializer serializer, dynamic data)
+	    {
+		    dynamic id = Int32.Parse(data["ID"].ToString());
+		    dynamic b = JObject.Parse(data["fields"].ToString());
+
+		    var obj = (Object) Activator.CreateInstance(objectType);
+		    var jobject = new JObject(b);
+
+		    //Get all the properties and loop trough them. Then add all the properties with the correct names from je object.
+		    //This makes sure the mapping is right when deserializing the object.
+		    var properties =
+			    objectType.GetProperties()
+				    .Where(
+					    x =>
+						    x.GetCustomAttributes(false)
+							    .Any(y => y.GetType() == typeof (CopernicaField) || y.GetType() == typeof (CopernicaKeyField)));
+		    var jobj = new JObject();
+		    foreach (var property in properties)
+		    {
+			    jobj.Add(property.Name, jobject[property.GetCustomAttribute<CopernicaField>().Name]);
+		    }
+
+		    //Populate the correct data in the object.
+		    JsonReader objreader = jobj.CreateReader();
+		    serializer.Populate(objreader, obj);
+
+		    var idProperty = objectType.GetProperties().FirstOrDefault(p => p.Name == "ID");
+
+		    if (idProperty != null)
+		    {
+			    idProperty.SetValue(obj, id);
+		    }
+		    return obj;
+	    }
+
+	    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             if (value == null)
             {
@@ -85,5 +122,5 @@ namespace Arlanet.CopernicaNET.Helpers
 
             writer.Flush();
         }
-    }
+	}
 }

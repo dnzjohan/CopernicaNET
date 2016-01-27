@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using Arlanet.CopernicaNET.Configuration;
@@ -13,7 +14,6 @@ namespace Arlanet.CopernicaNET.Data
 	[JsonConverter(typeof(JsonFieldsConverter))]
 	public class CopernicaConfigurableSubProfile : CopernicaConfigurableBase, ICopernicaSubprofile
 	{
-
 		public int CollectionId
 		{
 			get
@@ -26,5 +26,8 @@ namespace Arlanet.CopernicaNET.Data
 				return modelConfiguration.CollectionId;
 			}
 		}
+
+
+		public int ProfileId { get; set; }
 	}
 }

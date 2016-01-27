@@ -33,16 +33,16 @@ namespace Arlanet.CopernicaNET.Data
 			//Validate the properties
 			if (propertyz == null)
 				throw new CopernicaException("A CopernicaKeyField attribute is expected. This specifies the field that will be used as identifier.");
-			else if (propertyz.GetCustomAttribute<CopernicaKeyField>().Name.ToUpper() == "ID")
-				throw new CopernicaException("Can't use the name 'ID' as a copernica field because it is being used as an identifier.");
+			//else if (propertyz.GetCustomAttribute<CopernicaKeyField>().Name.ToUpper() == "ID")
+			//	throw new CopernicaException("Can't use the name 'ID' as a copernica field because it is being used as an identifier.");
 
 			//Check for the database
 			var id = DatabaseId;
 
-			if (propertylist.Where(prop => prop.GetCustomAttribute<CopernicaField>() != null).Any(prop => prop.GetCustomAttribute<CopernicaField>().Name == "ID"))
-			{
-				throw new CopernicaException("Can't use the name 'ID' as a copernica field because it is being used as an identifier.");
-			}
+			//if (propertylist.Where(prop => prop.GetCustomAttribute<CopernicaField>() != null).Any(prop => prop.GetCustomAttribute<CopernicaField>().Name == "ID"))
+			//{
+			//	throw new CopernicaException("Can't use the name 'ID' as a copernica field because it is being used as an identifier.");
+			//}
 
 		}
 

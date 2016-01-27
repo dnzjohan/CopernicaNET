@@ -16,7 +16,9 @@ namespace Arlanet.CopernicaNET.Interfaces.Handlers
 
         void CreateSubProfile(int collectionid, int profileid, string jsondata, string accesstoken);
 
-        void UpdateProfile(int databaseid, string keyname, string keyvalue, string jsondata, string accesstoken);
+		string GetCollectionByProfileId(int databaseid, int profileid, int collectionid, string accesstoken);
+        
+		void UpdateProfile(int databaseid, string keyname, string keyvalue, string jsondata, string accesstoken);
         string GetProfileFields(int databaseid, string accesstoken);
         string GetSubProfileFields(int collectionid, string accesstoken);
     }

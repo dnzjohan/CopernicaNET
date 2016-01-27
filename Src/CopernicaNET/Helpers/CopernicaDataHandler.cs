@@ -52,5 +52,10 @@ namespace Arlanet.CopernicaNET.Helpers
         {
             return RequestHandler.Get(String.Format("collection/{0}/fields?access_token={1}", collectionid, accesstoken));
         }
-    }
+
+		public string GetCollectionByProfileId(int databaseid, int profileid, int collectionid, string accesstoken)
+		{
+			return RequestHandler.Get(String.Format("profile/{0}/subprofiles/{1}/?access_token={2}", profileid, collectionid, accesstoken));
+		}
+	}
 }

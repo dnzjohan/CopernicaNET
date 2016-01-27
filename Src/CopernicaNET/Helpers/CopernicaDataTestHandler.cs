@@ -63,5 +63,11 @@ namespace Arlanet.CopernicaNET.Helpers
         {
             return RequestHandler.Get(String.Format("Collection/{0}/fields?access_token={1}", collectionid, accesstoken));
         }
+
+	    string ICopernicaDataHandler.GetCollectionByProfileId(int databaseid, int profileid, int collectionid,
+		    string accesstoken)
+	    {
+		    throw new NotImplementedException();
+	    }
     }
 }
